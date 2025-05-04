@@ -1,7 +1,6 @@
 package com.example.stockcontroller.model;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -12,22 +11,20 @@ public class Usuario {
     private Long id;
 
     private String nombre;
-    private String correo;
+    private String email;
+    private String contrasena;
+    private String rol;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Pedido> pedidos;
-
-    // Constructor vacío
     public Usuario() {
     }
 
-    // Constructor completo
-    public Usuario(String nombre, String correo) {
+    public Usuario(String nombre, String email, String contrasena, String rol) {
         this.nombre = nombre;
-        this.correo = correo;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.rol = rol;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -44,29 +41,37 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    // Método toString
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
+                ", email='" + email + '\'' +
+                ", rol='" + rol + '\'' +
                 '}';
     }
 }

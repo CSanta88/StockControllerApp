@@ -1,7 +1,6 @@
 package com.example.stockcontroller.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -17,14 +16,12 @@ public class Proveedor {
     private String telefono;
     private String email;
 
-    @ManyToMany(mappedBy = "proveedores")
-    private List<Articulo> articulos;
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProveedorArticulo> proveedorArticulos;
 
-    // Constructor vacío
     public Proveedor() {
     }
 
-    // Constructor completo
     public Proveedor(String nombre, String direccion, String telefono, String email) {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -32,7 +29,6 @@ public class Proveedor {
         this.email = email;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -73,15 +69,14 @@ public class Proveedor {
         this.email = email;
     }
 
-    public List<Articulo> getArticulos() {
-        return articulos;
+    public List<ProveedorArticulo> getProveedorArticulos() {
+        return proveedorArticulos;
     }
 
-    public void setArticulos(List<Articulo> articulos) {
-        this.articulos = articulos;
+    public void setProveedorArticulos(List<ProveedorArticulo> proveedorArticulos) {
+        this.proveedorArticulos = proveedorArticulos;
     }
 
-    // Método toString para facilitar la depuración
     @Override
     public String toString() {
         return "Proveedor{" +

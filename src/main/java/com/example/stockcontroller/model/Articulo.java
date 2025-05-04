@@ -1,7 +1,6 @@
 package com.example.stockcontroller.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,35 +17,26 @@ public class Articulo {
     private BigDecimal precio;
     private int stock;
 
-    @Column(name ="stock_minimo")  // Corregido el nombre de la columna
+    @Column(name = "stock_minimo")
     private int stockMinimo;
 
-    @ManyToMany
-    @JoinTable(
-            name = "articulo_proveedor", // Nombre de la tabla de relación
-            joinColumns = @JoinColumn(name = "articulo_id"),
-            inverseJoinColumns = @JoinColumn(name = "proveedor_id")
-    )
-    private List<Proveedor> proveedores;  // Cambio de ManyToOne a ManyToMany
+    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProveedorArticulo> proveedorArticulos;
 
     @OneToMany(mappedBy = "articulo")
-    private List<DetallePedido> detallesPedidos;
+    private List<LineaPedido> detallesPedidos;
 
-    // Constructor vacío
     public Articulo() {
     }
 
-    // Constructor completo
-    public Articulo(String nombre, String descripcion, BigDecimal precio, int stock, int stockMinimo, List<Proveedor> proveedores) {
+    public Articulo(String nombre, String descripcion, BigDecimal precio, int stock, int stockMinimo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.stockMinimo = stockMinimo;
-        this.proveedores = proveedores;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -95,23 +85,22 @@ public class Articulo {
         this.stockMinimo = stockMinimo;
     }
 
-    public List<Proveedor> getProveedores() {
-        return proveedores;
+    public List<ProveedorArticulo> getProveedorArticulos() {
+        return proveedorArticulos;
     }
 
-    public void setProveedores(List<Proveedor> proveedores) {
-        this.proveedores = proveedores;
+    public void setProveedorArticulos(List<ProveedorArticulo> proveedorArticulos) {
+        this.proveedorArticulos = proveedorArticulos;
     }
 
-    public List<DetallePedido> getDetallesPedidos() {
+    public List<LineaPedido> getDetallesPedidos() {
         return detallesPedidos;
     }
 
-    public void setDetallesPedidos(List<DetallePedido> detallesPedidos) {
+    public void setDetallesPedidos(List<LineaPedido> detallesPedidos) {
         this.detallesPedidos = detallesPedidos;
     }
 
-    // Método toString
     @Override
     public String toString() {
         return "Articulo{" +
@@ -120,6 +109,7 @@ public class Articulo {
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", stock=" + stock +
+                ", stockMinimo=" + stockMinimo +
                 '}';
     }
 }
