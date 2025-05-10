@@ -1,7 +1,9 @@
 package com.example.stockcontroller.model;
 
+import com.example.stockcontroller.enums.EstadoPedido;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,7 +17,8 @@ public class Pedido {
 
     private LocalDate fecha;
 
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estado;
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
@@ -27,7 +30,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(LocalDate fecha, String estado, Proveedor proveedor) {
+    public Pedido(LocalDate fecha, EstadoPedido estado, Proveedor proveedor) {
         this.fecha = fecha;
         this.estado = estado;
         this.proveedor = proveedor;
@@ -49,11 +52,11 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public String getEstado() {
+    public EstadoPedido getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPedido estado) {
         this.estado = estado;
     }
 
@@ -71,6 +74,13 @@ public class Pedido {
 
     public void setDetallesPedidos(List<LineaPedido> detallesPedidos) {
         this.detallesPedidos = detallesPedidos;
+    }
+
+
+    public BigDecimal getTotalPedido() {
+        return detallesPedidos.stream()
+                .map(LineaPedido::getTotalLinea)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override

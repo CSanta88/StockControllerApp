@@ -1,5 +1,6 @@
 package com.example.stockcontroller.model;
 
+import com.jayway.jsonpath.internal.function.numeric.Min;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,10 +12,12 @@ public class Articulo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String descripcion;
+
+    @Column(precision = 10, scale = 2)//Para manejar correctamente el precio con decimales
     private BigDecimal precio;
+
     private int stock;
 
     @Column(name = "stock_minimo")

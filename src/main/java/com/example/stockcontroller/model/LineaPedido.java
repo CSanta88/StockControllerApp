@@ -74,6 +74,15 @@ public class LineaPedido {
         this.pedido = pedido;
     }
 
+    // Método para obtener el total de la línea de pedido
+    public BigDecimal getTotalLinea() {
+        if (precioUnitario != null && cantidad > 0) {
+            return precioUnitario.multiply(BigDecimal.valueOf(cantidad));
+        }
+        return BigDecimal.ZERO;
+    }
+
+
     @Override
     public String toString() {
         return "LineaPedido{" +

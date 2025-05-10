@@ -12,11 +12,14 @@ import java.util.Optional;
 
 @Repository
 public interface ProveedorArticuloRepository extends JpaRepository<ProveedorArticulo, Long> {
+
     List<ProveedorArticulo> findByArticulo(Articulo articulo);
 
     // Método para obtener el proveedor más barato para un artículo
-    @Query("SELECT pa.proveedor FROM ProveedorArticulo pa WHERE pa.articulo = :articulo ORDER BY pa.precio ASC")
-    Optional<Proveedor> findProveedorMasEconomicoByArticuloId(Articulo articulo);
+    @Query("SELECT pa.proveedor FROM ProveedorArticulo pa WHERE pa.articulo.id = :articuloId ORDER BY pa.precio ASC")
+    Optional<Proveedor> findProveedorMasEconomicoByArticuloId(Long articuloId);
+
+    Optional<ProveedorArticulo> findTopByArticuloIdOrderByPrecioCompraAsc(Long articuloId);
 
     List<ProveedorArticulo> findByProveedor(Proveedor proveedor);
 }

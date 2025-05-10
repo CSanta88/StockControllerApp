@@ -1,6 +1,8 @@
 package com.example.stockcontroller.model;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.NotFound;
 
 @Entity
 @Table(name = "usuarios")
@@ -9,6 +11,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String nombre;
     private String email;
@@ -46,6 +49,15 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
+        // Expresión regular para validar el correo electrónico
+        String userEmail = "^[A-Za-z0-9._%+-]{3,}@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+        // Verificar si el email es válido
+        if (email == null || !email.matches(userEmail)) {
+            throw new IllegalArgumentException("El email debe tener un formato válido.");
+        }
+
+        // Si pasa la validación, asignamos el valor
         this.email = email;
     }
 
@@ -54,6 +66,13 @@ public class Usuario {
     }
 
     public void setContrasena(String contrasena) {
+        String contrasenaValida = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$";
+
+        //Verificar si la contraseña cumple con el formato
+        if(contrasena==null || !contrasena.matches(contrasenaValida)){
+            throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres, incluyendo letras, números y caracteres especiales.");
+        }
+        // Si pasa la validación, asignamos el valor
         this.contrasena = contrasena;
     }
 

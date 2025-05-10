@@ -1,7 +1,8 @@
 package com.example.stockcontroller.enums;
 
-public enum PedidoEstado {
+public enum EstadoPedido {
     PENDIENTE,
+    EN_PROCESO,
     RECIBIDO,
     CANCELADO
 }

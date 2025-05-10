@@ -20,8 +20,18 @@ public class ProveedorArticulo {
 
     private Double precioCompra;
 
-    // Getters y setters
+    // Constructor por defecto (necesario para JPA)
+    public ProveedorArticulo() {
+    }
 
+    // Constructor con parámetros
+    public ProveedorArticulo(Articulo articulo, Proveedor proveedor, Double precioCompra) {
+        this.articulo = articulo;
+        this.proveedor = proveedor;
+        this.precioCompra = precioCompra;
+    }
+
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -51,6 +61,18 @@ public class ProveedorArticulo {
     }
 
     public void setPrecioCompra(Double precioCompra) {
+        if (precioCompra < 0) {
+            throw new IllegalArgumentException("El precio de compra no puede ser negativo");
+        }
         this.precioCompra = precioCompra;
+    }
+    @Override
+    public String toString() {
+        return "ProveedorArticulo{" +
+                "id=" + id +
+                ", articulo=" + articulo +
+                ", proveedor=" + proveedor +
+                ", precioCompra=" + precioCompra +
+                '}';
     }
 }

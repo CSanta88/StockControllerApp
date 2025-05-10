@@ -1,5 +1,7 @@
 package com.example.stockcontroller.service;
 
+
+import com.example.stockcontroller.enums.EstadoPedido;
 import com.example.stockcontroller.model.*;
 import com.example.stockcontroller.repository.ArticuloRepository;
 import com.example.stockcontroller.repository.LineaPedidoRepository;
@@ -59,7 +61,7 @@ public class ArticuloService {
 
         for (Articulo articulo : articulosConStockBajo) {
             Optional<Proveedor> proveedorMasBarato = proveedorArticuloRepository
-                    .findProveedorMasEconomicoByArticuloId(articulo);
+                    .findProveedorMasEconomicoByArticuloId(articulo.getId());
 
             proveedorMasBarato.ifPresent(proveedor -> {
 
@@ -67,7 +69,7 @@ public class ArticuloService {
                 Pedido pedido = new Pedido();
                 pedido.setFecha(LocalDate.now());
                 pedido.setProveedor(proveedor);
-                pedido.setEstado("PENDIENTE");
+                pedido.setEstado(EstadoPedido.PENDIENTE);
 
                 Pedido pedidoGuardado = pedidoRepository.save(pedido);
 

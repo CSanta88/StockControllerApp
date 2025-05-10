@@ -1,7 +1,10 @@
 package com.example.stockcontroller.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "proveedores")
@@ -76,6 +79,22 @@ public class Proveedor {
     public void setProveedorArticulos(List<ProveedorArticulo> proveedorArticulos) {
         this.proveedorArticulos = proveedorArticulos;
     }
+
+    // Método que retorna todos los artículos de un proveedor
+    public List<Articulo> getArticulos() {
+
+        // Verificamos si proveedorArticulos es null para evitar NullPointerException
+        if (proveedorArticulos == null) {
+            return new ArrayList<>();  //
+        }
+
+        // Usamos Stream para transformar la lista de ProveedorArticulo en una lista de Articulo
+        return proveedorArticulos.stream()
+                .map(ProveedorArticulo::getArticulo)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public String toString() {

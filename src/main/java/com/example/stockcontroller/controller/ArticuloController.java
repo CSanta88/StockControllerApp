@@ -19,34 +19,34 @@ public class ArticuloController {
     // Obtener todos los artículos
     @GetMapping
     public List<Articulo> getAllArticulos() {
-        return articuloService.findAll();
+        return articuloService.obtenerTodosArticulos();
     }
 
     // Obtener un artículo por su ID
     @GetMapping("/{id}")
     public ResponseEntity<Articulo> getArticuloById(@PathVariable Long id) {
-        Optional<Articulo> articulo = articuloService.findById(id);
+        Optional<Articulo> articulo = articuloService.obtenerArticuloPorId(id);
         return articulo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Crear un nuevo artículo
     @PostMapping
     public ResponseEntity<Articulo> createArticulo(@RequestBody Articulo articulo) {
-        Articulo newArticulo = articuloService.save(articulo);
+        Articulo newArticulo = articuloService.guardarArticulo(articulo);
         return ResponseEntity.ok(newArticulo);
     }
 
     // Actualizar un artículo
     @PutMapping("/{id}")
     public ResponseEntity<Articulo> updateArticulo(@PathVariable Long id, @RequestBody Articulo articulo) {
-        Articulo updatedArticulo = articuloService.update(id, articulo);
+        Articulo updatedArticulo = articuloService.guardarArticulo(articulo);
         return ResponseEntity.ok(updatedArticulo);
     }
 
     // Eliminar un artículo
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArticulo(@PathVariable Long id) {
-        articuloService.delete(id);
+        articuloService.eliminarArticulo(id);
         return ResponseEntity.noContent().build();
     }
 }

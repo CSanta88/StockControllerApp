@@ -1,7 +1,8 @@
 package com.example.stockcontroller.controller;
 
-import com.example.stockcontroller.model.Proveedor;
-import com.example.stockcontroller.service.ProveedorService;
+import com.example.stockcontroller.model.LineaPedido;
+import com.example.stockcontroller.service.LineaPedidoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,43 +11,48 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/proveedores")
-public class ProveedorController {
+@RequestMapping("/api/lineas-pedido")
+public class LineaPedidoController {
 
     @Autowired
-    private ProveedorService proveedorService;
+    private LineaPedidoService lineaPedidoService;
 
-    // Obtener todos los proveedores
+    // Obtener todas las líneas de pedido
     @GetMapping
-    public List<Proveedor> getAllProveedores() {
-        return proveedorService.findAll();
+    public List<LineaPedido> getAllLineasPedido() {
+        return lineaPedidoService.obtenerTodasLineasPedidos();
     }
 
-    // Obtener un proveedor por su ID
+    // Obtener una línea de pedido por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Proveedor> getProveedorById(@PathVariable Long id) {
-        Optional<Proveedor> proveedor = proveedorService.findById(id);
-        return proveedor.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<LineaPedido> getLineaPedidoById(@PathVariable Long id) {
+        try {
+            LineaPedido linea = lineaPedidoService.obtenerLineaPedidoPorId(id);
+            return ResponseEntity.ok(linea);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build(); // Si no se encuentra, devuelve 404
+        }
     }
 
-    // Crear un nuevo proveedor
+    // Crear una nueva línea de pedido
     @PostMapping
-    public ResponseEntity<Proveedor> createProveedor(@RequestBody Proveedor proveedor) {
-        Proveedor newProveedor = proveedorService.save(proveedor);
-        return ResponseEntity.ok(newProveedor);
+    public ResponseEntity<LineaPedido> createLineaPedido(@RequestBody LineaPedido lineaPedido) {
+        LineaPedido nueva = lineaPedidoService.guardarLineaPedido(lineaPedido);
+        return ResponseEntity.ok(nueva);
     }
 
-    // Actualizar un proveedor
+    // Actualizar una línea de pedido existente
     @PutMapping("/{id}")
-    public ResponseEntity<Proveedor> updateProveedor(@PathVariable Long id, @RequestBody Proveedor proveedor) {
-        Proveedor updatedProveedor = proveedorService.update(id, proveedor);
-        return ResponseEntity.ok(updatedProveedor);
+    public ResponseEntity<LineaPedido> updateLineaPedido(@PathVariable Long id, @RequestBody LineaPedido lineaPedido) {
+        lineaPedido.setId(id); // Asegúrate de establecer el ID
+        LineaPedido actualizada = lineaPedidoService.guardarLineaPedido(lineaPedido);
+        return ResponseEntity.ok(actualizada);
     }
 
-    // Eliminar un proveedor
+    // Eliminar una línea de pedido
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProveedor(@PathVariable Long id) {
-        proveedorService.delete(id);
+    public ResponseEntity<Void> deleteLineaPedido(@PathVariable Long id) {
+        lineaPedidoService.eliminarLineaPedido(id);
         return ResponseEntity.noContent().build();
     }
 }
