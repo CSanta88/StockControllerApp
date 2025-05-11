@@ -28,6 +28,11 @@ public class ArticuloController {
         Optional<Articulo> articulo = articuloService.obtenerArticuloPorId(id);
         return articulo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+    // Obtener artículos cuyo stock es menor que el mínimo
+    @GetMapping("/stock-bajo")
+    public List<Articulo> getArticulosConStockBajo(@RequestParam(defaultValue = "10") int stockMinimo) {
+        return articuloService.obtenerArticulosStockMinimo(stockMinimo);
+    }
 
     // Crear un nuevo artículo
     @PostMapping
@@ -35,6 +40,13 @@ public class ArticuloController {
         Articulo newArticulo = articuloService.guardarArticulo(articulo);
         return ResponseEntity.ok(newArticulo);
     }
+    // Crear un pedido automático para un artículo con stock bajo
+    @PostMapping("/generar-pedidos-automaticos")
+    public ResponseEntity<Void> generarPedidosAutomaticos() {
+        articuloService.generarPedidosAutomaticos();
+        return ResponseEntity.ok().build();
+    }
+
 
     // Actualizar un artículo
     @PutMapping("/{id}")

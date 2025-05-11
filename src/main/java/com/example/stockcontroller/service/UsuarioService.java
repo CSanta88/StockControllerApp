@@ -5,6 +5,9 @@ import com.example.stockcontroller.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UsuarioService {
 
@@ -14,6 +17,9 @@ public class UsuarioService {
     // Método para guardar un usuario
     public Usuario guardar(Usuario usuario) {
         return usuarioRepository.save(usuario);
+    }
+    public void eliminar(Long id) {
+        usuarioRepository.deleteById(id); // Este es el delete
     }
 
     // Método para autenticar un usuario (dejado para el futuro)
@@ -25,13 +31,10 @@ public class UsuarioService {
         if (usuario == null) {
             return false;
         }
-
         // Comparar la contraseña proporcionada con la almacenada
-        // Si coincide la contraseña, retorna true
         if (usuario.getContrasena().equals(password)) {
             return true;
         }
-
         // Si la contraseña no coincide, retornar false
         return false;
     }
@@ -43,4 +46,19 @@ public class UsuarioService {
         // Guardar los cambios en la base de datos
         usuarioRepository.save(usuario);
     }
+    // Método para obtener todos los usuarios
+    public List<Usuario> obtenerTodosLosUsuarios() {
+        return usuarioRepository.findAll();
+    }
+    // Método para obtener un usuario por su ID
+    public Optional<Usuario> obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id);  // Retorna un usuario por ID
+    }
+    // Método para obtener un usuario por su email
+    public Optional<Usuario> obtenerUsuarioPorEmail(String email) {
+        return usuarioRepository.findByEmail(email);  // Retorna un usuario por su email
+    }
+
+
+
 }
