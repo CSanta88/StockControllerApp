@@ -1,6 +1,6 @@
 package com.example.stockcontroller.model;
 
-import com.jayway.jsonpath.internal.function.numeric.Min;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;

@@ -16,7 +16,7 @@ public interface ProveedorArticuloRepository extends JpaRepository<ProveedorArti
     List<ProveedorArticulo> findByArticulo(Articulo articulo);
 
     // Método para obtener el proveedor más barato para un artículo
-    @Query("SELECT pa.proveedor FROM ProveedorArticulo pa WHERE pa.articulo.id = :articuloId ORDER BY pa.precio ASC")
+    @Query("SELECT pa.proveedor FROM ProveedorArticulo pa WHERE pa.articulo.id = :articuloId ORDER BY pa.precioCompra ASC")
     Optional<Proveedor> findProveedorMasEconomicoByArticuloId(Long articuloId);
 
     Optional<ProveedorArticulo> findTopByArticuloIdOrderByPrecioCompraAsc(Long articuloId);

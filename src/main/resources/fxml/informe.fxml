@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.stockcontroller.controller.view.InformeViewController"
+            prefWidth="600.0" prefHeight="400.0">
+
+    <stylesheets>
+        <URL value="@../css/estilos.css"/>
+    </stylesheets>
+
+    <top>
+        <HBox spacing="10" padding="15">
+            <Button fx:id="btnVolver" text="Volver al Dashboard" styleClass="btn-secundario"/>
+            <Label text="Generar Informes" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="15" alignment="CENTER">
+            <Label text="Seleccione el tipo de informe:"/>
+            <ComboBox fx:id="comboTipoInforme" prefWidth="250"/>
+            <Button text="Generar Informe" onAction="#generarInforme" styleClass="btn-primario"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Label fx:id="labelEstado" text="" style="-fx-text-fill: green;"/>
+    </bottom>
+</BorderPane>

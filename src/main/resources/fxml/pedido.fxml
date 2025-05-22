@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.stockcontroller.controller.view.PedidoViewController"
+            prefWidth="800.0" prefHeight="600.0">
+
+    <stylesheets>
+        <URL value="@../css/estilos.css"/>
+    </stylesheets>
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <HBox spacing="10">
+                <Button fx:id="btnVolver" text="Volver al Dashboard" styleClass="btn-secundario"/>
+                <Label text="Gestión de Pedidos" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <TableView fx:id="tablaPedidos">
+                <columns>
+                    <TableColumn fx:id="columnaId" text="ID"/>
+                    <TableColumn fx:id="columnaFecha" text="Fecha"/>
+                    <TableColumn fx:id="columnaProveedor" text="Proveedor"/>
+                    <TableColumn fx:id="columnaEstado" text="Estado"/>
+                </columns>
+            </TableView>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Crear Pedido" onAction="#crearPedido" styleClass="btn-crear"/>
+                <Button text="Actualizar Estado" onAction="#actualizarPedido" styleClass="btn-actualizar"/>
+                <Button text="Eliminar" onAction="#eliminarPedido" styleClass="btn-eliminar"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
