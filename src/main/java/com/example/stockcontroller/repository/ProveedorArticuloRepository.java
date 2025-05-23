@@ -13,7 +13,14 @@ import java.util.Optional;
 @Repository
 public interface ProveedorArticuloRepository extends JpaRepository<ProveedorArticulo, Long> {
 
+    // Métodos para buscar relaciones por proveedor o artículo
     List<ProveedorArticulo> findByArticulo(Articulo articulo);
+    List<ProveedorArticulo> findByProveedorId(Long proveedorId);
+    List<ProveedorArticulo> findByArticuloId(Long articuloId);
+    List<ProveedorArticulo> findByArticuloIdAndProveedorId(Long articuloId, Long proveedorId);
+
+    // Método para eliminar todas las relaciones de un proveedor
+    void deleteByProveedorId(Long proveedorId);
 
     // Método para obtener el proveedor más barato para un artículo
     @Query("SELECT pa.proveedor FROM ProveedorArticulo pa WHERE pa.articulo.id = :articuloId ORDER BY pa.precioCompra ASC")
@@ -21,5 +28,4 @@ public interface ProveedorArticuloRepository extends JpaRepository<ProveedorArti
 
     Optional<ProveedorArticulo> findTopByArticuloIdOrderByPrecioCompraAsc(Long articuloId);
 
-    List<ProveedorArticulo> findByProveedor(Proveedor proveedor);
 }

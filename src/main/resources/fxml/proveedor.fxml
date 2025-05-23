@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import java.net.URL?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
@@ -11,7 +11,7 @@
             prefWidth="800.0" prefHeight="600.0">
 
     <stylesheets>
-        <URL value="@../css/estilos.css"/>
+        <URL value="@../css/estilos.css" />
     </stylesheets>
 
     <top>
@@ -19,14 +19,13 @@
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <HBox spacing="10">
-                <Button fx:id="btnVolver" text="Volver al Dashboard" styleClass="btn-secundario"/>
-                <Label text="Gestión de Proveedores" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="GESTIÓN DE PROVEEDORES" style="-fx-font-size: 30px; -fx-font-weight: bold;" />
             </HBox>
             <HBox spacing="10">
                 <TextField fx:id="campoBusqueda" promptText="Buscar por nombre..." />
-                <Button text="Buscar" onAction="#buscarPorNombre" styleClass="btn-primario"/>
-                <Button text="Mostrar Todos" onAction="#cargarProveedores" styleClass="btn-secundario"/>
+                <Button onAction="#buscarPorNombre" prefWidth="45" styleClass="btn-lupa" text="🔍" />
+                <Button onAction="#cargarProveedores" prefHeight="42.0" prefWidth="78.0" styleClass="btn-secundario" text="Ver Todos" wrapText="true" />
             </HBox>
         </VBox>
     </top>
@@ -37,11 +36,12 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <TableView fx:id="tablaProveedores">
+            <TableView fx:id="tablaProveedores" prefHeight="230">
                 <columns>
-                    <TableColumn fx:id="columnaNombre" text="Nombre"/>
-                    <TableColumn fx:id="columnaEmail" text="Email"/>
-                    <TableColumn fx:id="columnaTelefono" text="Teléfono"/>
+                    <TableColumn fx:id="columnaNombre" prefWidth="180" text="Nombre" />
+                    <TableColumn fx:id="columnaDireccion" prefWidth="230" text="Dirección" />
+                    <TableColumn fx:id="columnaEmail" prefWidth="200" text="Email" />
+                    <TableColumn fx:id="columnaTelefono" prefWidth="120" text="Teléfono" />
                 </columns>
             </TableView>
 
@@ -50,21 +50,42 @@
                     <Insets top="10" right="10" bottom="10" left="10"/>
                 </padding>
 
-                <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="campoNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="campoNombre" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="campoEmail" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="campoDireccion" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-                <Label text="Teléfono:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="campoTelefono" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="campoEmail" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="campoTelefono" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Artículos que ofrece:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TableView fx:id="tablaArticulosProveedor" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="150" editable="true">
+                    <columns>
+                        <TableColumn fx:id="colSeleccion" text="Asignado" prefWidth="80"/>
+                        <TableColumn fx:id="colArticulo" text="Artículo" prefWidth="170"/>
+                        <TableColumn fx:id="colPrecio" text="Precio Compra (€)" prefWidth="110"/>
+                    </columns>
+                </TableView>
             </GridPane>
 
             <HBox spacing="10">
-                <Button text="Crear" onAction="#crearProveedor" styleClass="btn-crear"/>
-                <Button text="Actualizar" onAction="#actualizarProveedor" styleClass="btn-actualizar"/>
-                <Button text="Eliminar" onAction="#eliminarProveedor" styleClass="btn-eliminar"/>
+                <Button onAction="#crearProveedor" prefWidth="120" styleClass="btn-crear" text="Crear" />
+                <Button onAction="#actualizarProveedor" prefWidth="120" styleClass="btn-actualizar" text="Actualizar" />
+                <Button onAction="#eliminarProveedor" prefWidth="120" styleClass="btn-eliminar" text="Eliminar" />
             </HBox>
         </VBox>
     </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="10"/>
+            </padding>
+            <Button onAction="#volverAlDashboard" prefWidth="170" styleClass="btn-secundario" text="◀ Volver al Inicio" />
+        </HBox>
+    </bottom>
 </BorderPane>

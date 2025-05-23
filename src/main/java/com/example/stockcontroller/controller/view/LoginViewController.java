@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.event.ActionEvent;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -16,10 +18,27 @@ public class LoginViewController {
     @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;
     @FXML private Button btnLogin;
+    @FXML private Button btnCrearUsuario;
 
     @FXML
     public void initialize() {
         btnLogin.setOnAction(e -> autenticarUsuario());
+    }
+
+    @FXML
+    private void handleCrearUsuario(ActionEvent event) {
+        try {
+            System.out.println(getClass().getResource("/fxml/crear_usuario.fxml")); // debug
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crear_usuario.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            mostrarError("Error", "No se pudo abrir la pantalla de registro.");
+            e.printStackTrace();
+        }
     }
 
     private void autenticarUsuario() {
@@ -44,19 +63,16 @@ public class LoginViewController {
         }
     }
 
-    // Validación sencilla de email (igual que en tu entidad)
     private boolean validarEmail(String email) {
         String regex = "^[A-Za-z0-9._%+-]{3,}@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         return email != null && email.matches(regex);
     }
 
-    // Validación sencilla de contraseña (igual que en tu entidad)
     private boolean validarPassword(String password) {
         String regex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$";
         return password != null && password.matches(regex);
     }
 
-    // Llama al backend para autenticar usuario
     private boolean autenticarConBackend(String email, String password) {
         try {
             URL url = new URL("http://localhost:8080/api/usuarios/autenticar");
@@ -84,12 +100,15 @@ public class LoginViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
             Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/estilos.css").toExternalForm());
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
             stage.setTitle("Panel Principal - Stock Controller");
             stage.show();
         } catch (Exception e) {
             mostrarError("Error", "No se pudo cargar el Dashboard.");
+            e.printStackTrace();
         }
     }
 

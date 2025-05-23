@@ -7,11 +7,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 import java.time.LocalDate;
 import java.net.URI;
 import java.net.http.*;
 import java.util.List;
+import java.util.Objects;
 
 public class PedidoViewController {
 
@@ -130,6 +136,20 @@ public class PedidoViewController {
 
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenAccept(response -> Platform.runLater(this::cargarPedidos));
+    }
+    @FXML
+    public void volverAlDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) btnVolver.getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/estilos.css")).toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("Panel Principal");
+        } catch (Exception e) {
+            mostrarError("Error", "No se pudo volver al panel principal.");
+        }
     }
 
     private void mostrarError(String titulo, String mensaje) {

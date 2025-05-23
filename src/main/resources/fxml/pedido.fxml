@@ -19,28 +19,59 @@
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <HBox spacing="10">
-                <Button fx:id="btnVolver" text="Volver al Dashboard" styleClass="btn-secundario"/>
-                <Label text="Gestión de Pedidos" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Gestión de Pedidos" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
             </HBox>
         </VBox>
     </top>
 
     <center>
         <VBox spacing="15">
-            <TableView fx:id="tablaPedidos">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Tabla de pedidos -->
+            <TableView fx:id="tablaPedidos" prefHeight="220" minWidth="760">
                 <columns>
-                    <TableColumn fx:id="columnaId" text="ID"/>
-                    <TableColumn fx:id="columnaFecha" text="Fecha"/>
-                    <TableColumn fx:id="columnaProveedor" text="Proveedor"/>
-                    <TableColumn fx:id="columnaEstado" text="Estado"/>
+                    <TableColumn fx:id="columnaId" text="ID" prefWidth="80"/>
+                    <TableColumn fx:id="columnaFecha" text="Fecha" prefWidth="180"/>
+                    <TableColumn fx:id="columnaProveedor" text="Proveedor" prefWidth="220"/>
+                    <TableColumn fx:id="columnaEstado" text="Estado" prefWidth="220"/>
                 </columns>
             </TableView>
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="Crear Pedido" onAction="#crearPedido" styleClass="btn-crear"/>
-                <Button text="Actualizar Estado" onAction="#actualizarPedido" styleClass="btn-actualizar"/>
-                <Button text="Eliminar" onAction="#eliminarPedido" styleClass="btn-eliminar"/>
+
+            <!-- Formulario de pedido -->
+            <GridPane hgap="14" vgap="11">
+                <padding>
+                    <Insets top="15" right="10" bottom="8" left="10"/>
+                </padding>
+
+                <Label text="Estado:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="campoEstado" promptText="Estado" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="215"/>
+
+                <Label text="Fecha:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="campoFecha" promptText="Fecha" GridPane.rowIndex="1" GridPane.columnIndex="1" maxWidth="215"/>
+
+                <Label text="Proveedor:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboProveedor" promptText="Selecciona proveedor" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="215"/>
+            </GridPane>
+
+            <!-- Botones de acción -->
+            <HBox spacing="13" alignment="CENTER">
+                <Button text="Crear Pedido" onAction="#crearPedido" styleClass="btn-crear" prefWidth="120"/>
+                <Button text="Actualizar Estado" onAction="#actualizarPedido" styleClass="btn-actualizar" prefWidth="130"/>
+                <Button text="Eliminar" onAction="#eliminarPedido" styleClass="btn-eliminar" prefWidth="110"/>
             </HBox>
         </VBox>
     </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="24" bottom="18" left="10"/>
+            </padding>
+            <Button fx:id="btnVolver" text="◀ Volver al Inicio" styleClass="btn-secundario" onAction="#volverAlDashboard" prefWidth="170"/>
+        </HBox>
+    </bottom>
 </BorderPane>

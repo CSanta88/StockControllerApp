@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="com.example.stockcontroller.controller.view.CrearUsuarioViewController"
+           prefWidth="420" prefHeight="420">
+    <VBox alignment="CENTER" spacing="16" styleClass="form-card" maxWidth="340">
+        <Label text="Registro de usuario" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+        <TextField fx:id="txtNombre" promptText="Nombre completo" maxWidth="260"/>
+        <TextField fx:id="txtEmail" promptText="Correo electrónico" maxWidth="260"/>
+        <PasswordField fx:id="txtContrasena" promptText="Contraseña" maxWidth="260"/>
+        <TextField fx:id="txtRol" promptText="Rol (admin/usuario)" maxWidth="260"/>
+        <Button text="Registrar" maxWidth="200" styleClass="btn-primario" onAction="#handleRegistrar"/>
+        <Button text="Volver al login" maxWidth="200" styleClass="btn-eliminar" onAction="#handleVolverLogin"/>
+        <Label fx:id="lblMensaje"/>
+    </VBox>
+</StackPane>

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +54,8 @@ public class MainApp extends Application {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/estilos.css")).toExternalForm());
+
             primaryStage.setScene(scene);
             primaryStage.setTitle("Stock Controller - Login");
             primaryStage.show();
