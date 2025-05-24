@@ -1,5 +1,6 @@
 package com.example.stockcontroller.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Proveedor {
     private String email;
 
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ProveedorArticulo> proveedorArticulos;
 
     public Proveedor() {

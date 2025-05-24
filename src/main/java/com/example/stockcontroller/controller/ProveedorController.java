@@ -1,15 +1,18 @@
 package com.example.stockcontroller.controller;
 
+
+import com.example.stockcontroller.frontmodel.DTOFront.ArticuloDTO;
+import com.example.stockcontroller.frontmodel.DTOFront.ProveedorArticuloResponseDTO;
+import com.example.stockcontroller.frontmodel.DTOFront.ProveedorDTO;
 import com.example.stockcontroller.model.Proveedor;
 import com.example.stockcontroller.model.ProveedorArticulo;
 import com.example.stockcontroller.repository.ProveedorArticuloRepository;
 import com.example.stockcontroller.service.ProveedorService;
-import com.example.stockcontroller.service.ProveedorArticuloDto; // O dto. corrige si cambias de paquete
+import com.example.stockcontroller.service.ProveedorArticuloDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/proveedores")
@@ -57,16 +60,28 @@ public class ProveedorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // NUEVO: Asignar lista de artículos y precios a proveedor
-    @PostMapping("/{id}/articulos")
+    @GetMapping("/{id}/articulos")
+    public List<ProveedorArticuloResponseDTO> getArticulosDeProveedor(@PathVariable Long id) {
+        List<ProveedorArticulo> relaciones = proveedorArticuloRepository.findByProveedorIdConJoinFetch(id);
+        return relaciones.stream()
+                .map(pa -> {
+                    ProveedorArticuloResponseDTO dto = new ProveedorArticuloResponseDTO();
+                    dto.setId(pa.getId());
+                    dto.setProveedor(new ProveedorDTO(pa.getProveedor()));
+                    dto.setArticulo(new ArticuloDTO(pa.getArticulo()));
+                    dto.setPrecioCompra(pa.getPrecioCompra());
+                    return dto;
+                })
+                .toList();
+    }
+    // Endpoint para asignar artículos a un proveedor (por su ID)
+    @PostMapping("/{proveedorId}/articulos")
     public ResponseEntity<?> asignarArticulosAProveedor(
-            @PathVariable Long id,
-            @RequestBody List<ProveedorArticuloDto> relaciones) {
-        proveedorService.asignarArticulosAProveedor(id, relaciones);
+            @PathVariable Long proveedorId,
+            @RequestBody List<ProveedorArticuloDto> relaciones
+    ) {
+        proveedorService.asignarArticulosAProveedor(proveedorId, relaciones);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/{id}/articulos")
-    public List<ProveedorArticulo> getArticulosDeProveedor(@PathVariable Long id) {
-        return proveedorArticuloRepository.findByProveedorId(id);
-    }
+
 }

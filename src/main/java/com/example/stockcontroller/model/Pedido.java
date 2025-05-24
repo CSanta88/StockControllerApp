@@ -92,4 +92,8 @@ public class Pedido {
                 ", proveedor=" + proveedor +
                 '}';
     }
+
+    public boolean isPendiente() {
+        return estado == EstadoPedido.PENDIENTE;
+    }
 }

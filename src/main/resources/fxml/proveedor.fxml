@@ -31,12 +31,12 @@
     </top>
 
     <center>
-        <VBox spacing="15">
+        <VBox spacing="20">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <TableView fx:id="tablaProveedores" prefHeight="230">
+            <TableView fx:id="tablaProveedores" prefHeight="180">
                 <columns>
                     <TableColumn fx:id="columnaNombre" prefWidth="180" text="Nombre" />
                     <TableColumn fx:id="columnaDireccion" prefWidth="230" text="Dirección" />
@@ -62,20 +62,24 @@
                 <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                 <TextField fx:id="campoTelefono" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-                <Label text="Artículos que ofrece:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                <TableView fx:id="tablaArticulosProveedor" GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="150" editable="true">
+                <!-- Tabla de artículos más grande -->
+                <Label text="Artículos que ofrece:" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.valignment="TOP"/>
+                <TableView fx:id="tablaArticulosProveedor"
+                           GridPane.columnIndex="1" GridPane.rowIndex="4"
+                           prefHeight="300" editable="true">
                     <columns>
                         <TableColumn fx:id="colSeleccion" text="Asignado" prefWidth="80"/>
-                        <TableColumn fx:id="colArticulo" text="Artículo" prefWidth="170"/>
-                        <TableColumn fx:id="colPrecio" text="Precio Compra (€)" prefWidth="110"/>
+                        <TableColumn fx:id="colArticulo" text="Artículo" prefWidth="280"/>
+                        <TableColumn fx:id="colPrecio" text="Precio Compra (€)" prefWidth="130"/>
                     </columns>
                 </TableView>
             </GridPane>
 
-            <HBox spacing="10">
+            <HBox spacing="15" alignment="CENTER">
                 <Button onAction="#crearProveedor" prefWidth="120" styleClass="btn-crear" text="Crear" />
                 <Button onAction="#actualizarProveedor" prefWidth="120" styleClass="btn-actualizar" text="Actualizar" />
                 <Button onAction="#eliminarProveedor" prefWidth="120" styleClass="btn-eliminar" text="Eliminar" />
+                <Button onAction="#limpiarCampos" prefWidth="120" styleClass="btn-secundario" text="Limpiar" />
             </HBox>
         </VBox>
     </center>
@@ -85,7 +89,7 @@
             <padding>
                 <Insets top="10" right="20" bottom="20" left="10"/>
             </padding>
-            <Button onAction="#volverAlDashboard" prefWidth="170" styleClass="btn-secundario" text="◀ Volver al Inicio" />
+            <Button onAction="#volverAlDashboard" prefWidth="160" styleClass="btn-secundario" text="◀ Volver al Inicio" />
         </HBox>
     </bottom>
 </BorderPane>

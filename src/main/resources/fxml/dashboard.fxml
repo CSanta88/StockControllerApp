@@ -11,28 +11,32 @@
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.stockcontroller.controller.view.DashboardViewController"
            prefWidth="800.0" prefHeight="560.0"
-           styleClass="dashboard-background">
+           styleClass="login-background">
+
     <BorderPane maxWidth="460" maxHeight="520" styleClass="form-card shadow-card">
         <top>
             <VBox spacing="6">
                 <padding>
                     <Insets top="35" right="35" bottom="8" left="35"/>
                 </padding>
-                <Label text="Panel Principal" styleClass="dashboard-title"/>
-                <Label text="Stock Controller" styleClass="dashboard-subtitle"/>
+                <Label text="Panel Principal" styleClass="login-title"/>
+                <Label text="Stock Controller 1.0" styleClass="dashboard-subtitle"/>
             </VBox>
         </top>
+
         <center>
             <VBox spacing="16" alignment="CENTER" VBox.vgrow="ALWAYS">
                 <padding>
                     <Insets top="24" right="38" bottom="32" left="38"/>
                 </padding>
-                <Button fx:id="btnArticulos" text="📦  Gestión de Artículos" maxWidth="Infinity" styleClass="btn-primario" onAction="#handleArticulos"/>
-                <Button fx:id="btnProveedores" text="🏭  Gestión de Proveedores" maxWidth="Infinity" styleClass="btn-secundario" onAction="#handleProveedores"/>
-                <Button fx:id="btnPedidos" text="📝  Gestión de Pedidos" maxWidth="Infinity" styleClass="btn-primario" onAction="#handlePedidos"/>
-                <Button fx:id="btnUsuarios" text="👤  Gestión de Usuarios" maxWidth="Infinity" styleClass="btn-secundario" onAction="#handleUsuarios"/>
-                <Button fx:id="btnInformes" text="📊  Generar Informes" maxWidth="Infinity" styleClass="btn-informes" onAction="#handleInformes"/>
-                <Button fx:id="btnLogout" text="⏻  Cerrar sesión" maxWidth="Infinity" styleClass="btn-eliminar" onAction="#handleLogout"/>
+
+                <Button fx:id="btnArticulos" text="📦 Gestión de Artículos" maxWidth="Infinity" styleClass="btn-dashboard" onAction="#handleArticulos"/>
+                <Button fx:id="btnProveedores" text="🏭 Gestión de Proveedores" maxWidth="Infinity" styleClass="btn-dashboard-sec" onAction="#handleProveedores"/>
+                <Button fx:id="btnPedidos" text="📝 Gestión de Pedidos" maxWidth="Infinity" styleClass="btn-dashboard" onAction="#handlePedidos"/>
+                <Button fx:id="btnUsuarios" text="👤 Gestión de Usuarios" maxWidth="Infinity" styleClass="btn-dashboard-sec" onAction="#handleUsuarios"/>
+                <Button fx:id="btnInformes" text="📊 Generar Informes" maxWidth="Infinity" styleClass="btn-dashboard" onAction="#handleInformes"/>
+
+                <Button fx:id="btnLogout" text="⏻ Cerrar sesión" maxWidth="Infinity" styleClass="btn-dashboard-logout" onAction="#handleLogout"/>
             </VBox>
         </center>
     </BorderPane>

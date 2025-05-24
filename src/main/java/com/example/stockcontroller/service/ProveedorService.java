@@ -44,10 +44,10 @@ public class ProveedorService {
         return proveedorRepository.findProveedorMasBarato(articuloId);
     }
 
-    // NUEVO: Asignar artículos y precios a un proveedor
+    // Método para obtener todos los artículos de un proveedor
     @Transactional
     public void asignarArticulosAProveedor(Long proveedorId, List<ProveedorArticuloDto> relaciones) {
-        proveedorArticuloRepository.deleteByProveedorId(proveedorId);
+        proveedorArticuloRepository.deleteByProveedorId(proveedorId); // Elimina relaciones previas
         Proveedor proveedor = proveedorRepository.findById(proveedorId)
                 .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
 

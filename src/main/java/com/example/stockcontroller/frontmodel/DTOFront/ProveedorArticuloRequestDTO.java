@@ -1,19 +1,13 @@
-package com.example.stockcontroller.service;
+package com.example.stockcontroller.frontmodel.DTOFront;
 
-
-/**
- * ProveedorArticuloDto es un Data Transfer Object (DTO) que representa la relación
- * entre un artículo y un proveedor, incluyendo el precio de compra.
- */
-
-public class ProveedorArticuloDto {
+public class ProveedorArticuloRequestDTO {
 
     private Long articuloId;
     private Double precioCompra;
 
-    // Constructores
-    public ProveedorArticuloDto() {}
-    public ProveedorArticuloDto(Long articuloId, Double precioCompra) {
+    public ProveedorArticuloRequestDTO() {}
+
+    public ProveedorArticuloRequestDTO(Long articuloId, Double precioCompra) {
         this.articuloId = articuloId;
         this.precioCompra = precioCompra;
     }

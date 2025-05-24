@@ -28,4 +28,11 @@ public interface ProveedorArticuloRepository extends JpaRepository<ProveedorArti
 
     Optional<ProveedorArticulo> findTopByArticuloIdOrderByPrecioCompraAsc(Long articuloId);
 
+
+    @Query("SELECT pa FROM ProveedorArticulo pa " +
+            "JOIN FETCH pa.articulo " +
+            "JOIN FETCH pa.proveedor " +
+            "WHERE pa.proveedor.id = :proveedorId")
+    List<ProveedorArticulo> findByProveedorIdConJoinFetch(Long proveedorId);
+
 }

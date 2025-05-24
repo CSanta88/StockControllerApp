@@ -1,6 +1,7 @@
 package com.example.stockcontroller.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,10 +24,13 @@ public class Articulo {
     @Column(name = "stock_minimo")
     private int stockMinimo;
 
+
     @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ProveedorArticulo> proveedorArticulos;
 
     @OneToMany(mappedBy = "articulo")
+    @JsonIgnore
     private List<LineaPedido> detallesPedidos;
 
     public Articulo() {
