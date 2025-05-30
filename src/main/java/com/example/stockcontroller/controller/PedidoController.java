@@ -63,7 +63,7 @@ public class PedidoController {
         try {
             Pedido pedido = pedidoService.crearPedidoAutomatico(articuloId);
             return ResponseEntity.ok(pedido);
-        } catch (Exception e) {
+       } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
