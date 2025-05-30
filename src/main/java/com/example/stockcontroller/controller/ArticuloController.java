@@ -1,13 +1,12 @@
 package com.example.stockcontroller.controller;
 
-import com.example.stockcontroller.model.Articulo;
+import com.example.stockcontroller.frontmodel.DTOFront.ArticuloDTO;
 import com.example.stockcontroller.service.ArticuloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/articulos")
@@ -16,43 +15,39 @@ public class ArticuloController {
     @Autowired
     private ArticuloService articuloService;
 
-    // Obtener todos los artículos
+    // Obtener todos los artículos (DTO)
     @GetMapping
-    public List<Articulo> getAllArticulos() {
-        return articuloService.obtenerTodosArticulos();
+    public List<ArticuloDTO> getAllArticulos() {
+        return articuloService.obtenerTodosDTO();
     }
 
-    // Obtener un artículo por su ID
+    // Obtener un artículo por su ID (DTO)
     @GetMapping("/{id}")
-    public ResponseEntity<Articulo> getArticuloById(@PathVariable Long id) {
-        Optional<Articulo> articulo = articuloService.obtenerArticuloPorId(id);
-        return articulo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    // Obtener artículos cuyo stock es menor que el mínimo
-    @GetMapping("/stock-bajo")
-    public List<Articulo> getArticulosConStockBajo(@RequestParam(defaultValue = "10") int stockMinimo) {
-        return articuloService.obtenerArticulosStockMinimo(stockMinimo);
+    public ResponseEntity<ArticuloDTO> getArticuloById(@PathVariable Long id) {
+        try {
+            ArticuloDTO articuloDTO = articuloService.obtenerPorIdDTO(id);
+            return ResponseEntity.ok(articuloDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    // Crear un nuevo artículo
+    // Crear un nuevo artículo (DTO)
     @PostMapping
-    public ResponseEntity<Articulo> createArticulo(@RequestBody Articulo articulo) {
-        Articulo newArticulo = articuloService.guardarArticulo(articulo);
-        return ResponseEntity.ok(newArticulo);
-    }
-    // Crear un pedido automático para un artículo con stock bajo
-    @PostMapping("/generar-pedidos-automaticos")
-    public ResponseEntity<Void> generarPedidosAutomaticos() {
-        articuloService.generarPedidosAutomaticos();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ArticuloDTO> createArticulo(@RequestBody ArticuloDTO articuloDTO) {
+        ArticuloDTO creado = articuloService.crearArticuloDTO(articuloDTO);
+        return ResponseEntity.ok(creado);
     }
 
-
-    // Actualizar un artículo
+    // Actualizar un artículo existente (DTO)
     @PutMapping("/{id}")
-    public ResponseEntity<Articulo> updateArticulo(@PathVariable Long id, @RequestBody Articulo articulo) {
-        Articulo updatedArticulo = articuloService.guardarArticulo(articulo);
-        return ResponseEntity.ok(updatedArticulo);
+    public ResponseEntity<ArticuloDTO> updateArticulo(@PathVariable Long id, @RequestBody ArticuloDTO articuloDTO) {
+        try {
+            ArticuloDTO actualizado = articuloService.actualizarArticuloDTO(id, articuloDTO);
+            return ResponseEntity.ok(actualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Eliminar un artículo
